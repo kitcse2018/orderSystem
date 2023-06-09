@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @DiscriminatorColumn(name = "M_TYPE")
-public class Menu {
+public abstract class Menu {
     @Id
     @GeneratedValue
     @Column(name = "MENU_ID")
