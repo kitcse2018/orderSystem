@@ -1,9 +1,7 @@
 package advancedWeb.orderSystem.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,5 +14,9 @@ public class Delivery {
     @Column(name = "DELIVERY_ID")
     private Long id;
 
+    @OneToOne(mappedBy = "delivery")
+    private Order order;
 
+    @Enumerated(EnumType.STRING)
+    private DeliveryStatus status; // READY(준비), DELIVERY(배송중), COMPLETE(배송완료), CANCEL(취소)
 }

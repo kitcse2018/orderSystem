@@ -1,6 +1,6 @@
 package advancedWeb.orderSystem.repository;
 
-import advancedWeb.orderSystem.domain.menu.Menu;
+import advancedWeb.orderSystem.domain.Menu;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

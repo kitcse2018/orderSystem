@@ -3,6 +3,6 @@ package advancedWeb.orderSystem.domain;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public enum OrderStatus {
+public enum DeliveryStatus {
     ORDER, DELIVERY, COMPLETE, CANCEL
 }
