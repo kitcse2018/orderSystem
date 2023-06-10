@@ -1,11 +1,9 @@
 package advancedWeb.orderSystem.controller;
 
+import advancedWeb.orderSystem.dto.MenuDTO;
 import advancedWeb.orderSystem.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/menu")
@@ -19,13 +17,13 @@ public class MenuController {
     }
 
     @PostMapping()
-    public void createMenu() {
-
+    public void createMenu(@RequestBody MenuDTO menuDTO) {
+        menuService.createMenu(menuDTO);
     }
 
     @PutMapping()
-    public void updateMenu() {
-
+    public void updateMenu(@RequestBody MenuDTO menuDTO) {
+        menuService.updateMenu(menuDTO);
     }
 
 }
