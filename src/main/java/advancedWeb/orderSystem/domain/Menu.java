@@ -18,10 +18,10 @@ public class Menu {
     private String name;
 
     // 메뉴 가격
-    private int price;
+    private Integer price;
 
     // 메뉴 판매 수량
-    private int quantity;
+    private Integer quantity;
 
     // 메뉴 사진
     private String pictureUrl;
