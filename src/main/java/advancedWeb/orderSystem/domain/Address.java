@@ -1,6 +1,6 @@
 package advancedWeb.orderSystem.domain;
 
-import jakarta.persistence.Embeddable;
+import javax.persistence.Embeddable;
 import lombok.Getter;
 import lombok.Setter;
 

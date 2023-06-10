@@ -1,6 +1,6 @@
 package advancedWeb.orderSystem.domain;
 
-import jakarta.persistence.Embeddable;
+import javax.persistence.Embeddable;
 
 @Embeddable
 public enum OrderStatus {
