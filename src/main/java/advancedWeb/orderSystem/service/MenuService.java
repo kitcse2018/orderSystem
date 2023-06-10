@@ -1,7 +1,9 @@
 package advancedWeb.orderSystem.service;
 
+import advancedWeb.orderSystem.domain.Menu;
 import advancedWeb.orderSystem.dto.MenuDTO;
 import advancedWeb.orderSystem.repository.MenuRepository;
+import advancedWeb.orderSystem.util.EntityConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +18,13 @@ public class MenuService {
     }
 
     public void createMenu(MenuDTO menuDTO) {
-        menuRepository.save();
+        Menu menu = EntityConverter.toMenu(menuDTO);
+        menuRepository.save(menu);
     }
 
     public void updateMenu(MenuDTO menuDTO) {
-        menuRepository.save();
+        Menu menu = EntityConverter.toMenu(menuDTO);
+        menuRepository.updateMenu(menu);
     }
 
 }
