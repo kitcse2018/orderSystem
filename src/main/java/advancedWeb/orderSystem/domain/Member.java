@@ -14,5 +14,6 @@ public class Member {
 
     private String name;
 
+    @Enumerated(EnumType.STRING)
     private RoleType roleType;
 }
