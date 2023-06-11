@@ -48,6 +48,16 @@ public class MenuController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<Object> searchMenuQuantity(@RequestParam("menuId") Long menuId) {
+        try {
+            menuService.searchMenuQuantity(menuId);
+        } catch (Exception e) {
+            throw new MenuException("찾는 메뉴가 없습니다.");
+        }
+        return ResponseEntity.ok().build();
+    }
+
     @ExceptionHandler(MenuException.class)
     public ResponseEntity<Object> handleMenuException(MenuException e) {
         printExceptionInfo(e.getMessage());

@@ -21,7 +21,7 @@ public class EntityConverter {
         Discount discount = new Discount();
 
         discount.setId(discount.getId());
-        discount.setIsRate(discountDTO.isRate());
+        discount.setIsRate(discountDTO.getIsRate());
         discount.setDiscountPrice(discountDTO.getDiscountPrice());
 
         return discount;

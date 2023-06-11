@@ -8,14 +8,18 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Member {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
 
+    @Column(name = "PASSWORD")
     private String password;
 
+    @Column(name = "NAME")
     private String name;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "ROLE_TYPE")
     private RoleType roleType;
 }

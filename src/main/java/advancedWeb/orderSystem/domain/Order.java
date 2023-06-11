@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,7 +17,13 @@ public class Order {
     @Column(name = "ORDER_ID")
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "DELIVERY_ID")
-    private Delivery delivery;
+    @OneToOne
+    @JoinColumn(name = "DISCOUNT_ID")
+    private Discount discount;
+
+    @Column(name = "DELIVERY")
+    private String delivery;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems = new ArrayList<>();
 }

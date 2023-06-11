@@ -1,7 +1,9 @@
 package advancedWeb.orderSystem.controller;
 
+import advancedWeb.orderSystem.dto.OrderDTO;
 import advancedWeb.orderSystem.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,5 +19,14 @@ public class OrderController {
         this.orderService = orderService;
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<Object> createOrder(OrderDTO orderDTO) {
+        try {
+            orderService.createOrder(orderDTO);
+        } catch (Exception e) {
+
+        }
+        return ResponseEntity.ok().build();
+    }
 
 }

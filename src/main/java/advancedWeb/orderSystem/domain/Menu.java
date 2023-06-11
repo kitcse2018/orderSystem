@@ -4,6 +4,9 @@ import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -14,21 +17,25 @@ public class Menu {
     @Column(name = "MENU_ID")
     private Long id;
 
-    // 메뉴 이름
+    @Column(name = "NAME")
     private String name;
 
-    // 메뉴 가격
+    @Column(name = "PRICE")
     private Integer price;
 
-    // 메뉴 판매 수량
+    @Column(name = "QUANTITY")
     private Integer quantity;
 
-    // 메뉴 사진
+    @Column(name = "PICTURE_URL")
     private String pictureUrl;
 
-    // 메뉴 상세 설명
+    @Column(name = "INFO")
     private String info;
 
-    // 메뉴 타입 (M: 메인메뉴, S: 사이드메뉴)
+    @Column(name = "TYPE")
     private String type;
+
+    // Menu와 OrderItem 간의 관계 설정
+    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems = new ArrayList<>();
 }

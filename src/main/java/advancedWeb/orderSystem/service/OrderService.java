@@ -1,8 +1,17 @@
 package advancedWeb.orderSystem.service;
 
+import advancedWeb.orderSystem.domain.Discount;
+import advancedWeb.orderSystem.domain.Menu;
+import advancedWeb.orderSystem.domain.Order;
+import advancedWeb.orderSystem.domain.OrderItem;
+import advancedWeb.orderSystem.dto.OrderDTO;
+import advancedWeb.orderSystem.dto.OrderItemDTO;
 import advancedWeb.orderSystem.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -12,6 +21,37 @@ public class OrderService {
     @Autowired
     public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
+    }
+
+    public void createOrder(OrderDTO orderDTO) {
+        Order order  = new Order();
+        Discount discount  = new Discount();
+
+        discount.setId(orderDTO.getDiscountId());
+
+        order.setId(null);
+        order.setDiscount(discount);
+        order.setDelivery(orderDTO.getDelivery());
+
+        List<OrderItem> orderItemList = new ArrayList<>();
+
+        for(OrderItemDTO orderItemDTO : orderDTO.getOrderItemDTOList()) {
+            OrderItem orderItem = new OrderItem();
+            Order order1 = new Order();
+            Menu menu1 = new Menu();
+
+            order1.setId(orderItemDTO.getOrderId());
+            menu1.setId(orderItemDTO.getMenuId());
+
+            orderItem.setId(orderItemDTO.getId());
+            orderItem.setOrder(order1);
+            orderItem.setMenu(menu1);
+
+            orderItemList.add(orderItem);
+        }
+        order.setOrderItems(orderItemList);
+
+        orderRepository.save(order);
     }
 
 }

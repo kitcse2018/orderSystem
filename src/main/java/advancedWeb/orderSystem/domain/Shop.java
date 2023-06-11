@@ -15,19 +15,18 @@ public class Shop {
     @Column(name = "SHOP_ID")
     private Long id;
 
-    // 가게 상호
+    @Column(name = "NAME")
     private String name;
 
-    // 가게 주소
     @Embedded
     private Address address;
 
-    // 가게 전화번호
+    @Column(name = "NUMBER")
     private String number;
 
-    // 가게 시작시간
+    @Column(name = "OPEN_TIME")
     private LocalDateTime openTime;
 
-    // 가게 종료시간
+    @Column(name = "CLOSE_TIME")
     private LocalDateTime closeTime;
 }

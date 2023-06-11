@@ -17,9 +17,9 @@ public class Discount {
     @Column(name = "DISCOUNT_ID")
     private Long id;
 
-    // 할인 금액이 비율로 적용 되는지 판별하기 위해 (정률 할인 시 %로 할인)
+    @Column(name = "IS_RATE")
     private Boolean isRate;
 
-    // 할인 금액 혹은 비율
+    @Column(name = "DISCOUNT_PRICE")
     private Integer discountPrice;
 }

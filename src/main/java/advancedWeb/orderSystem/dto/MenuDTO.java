@@ -7,8 +7,8 @@ import lombok.Data;
 public class MenuDTO {
     private Long id;
     private String name;
-    private int price;
-    private int quantity;
+    private Integer price;
+    private Integer quantity;
     private String pictureUrl;
     private String info;
     private String type;

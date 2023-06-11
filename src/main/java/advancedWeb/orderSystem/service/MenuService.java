@@ -36,4 +36,8 @@ public class MenuService {
     public List<Menu> findAll(){
         return menuRepository.findAll();
     }
+
+    public void searchMenuQuantity(Long menuId) {
+        menuRepository.findQuantityById(menuId);
+    }
 }
