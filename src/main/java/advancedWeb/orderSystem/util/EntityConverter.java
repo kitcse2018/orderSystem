@@ -27,16 +27,6 @@ public class EntityConverter {
         return discount;
     }
 
-    public static Delivery toDelivery(DeliveryDTO deliveryDTO) {
-        Delivery delivery = new Delivery();
-
-        delivery.setId(deliveryDTO.getId());
-        delivery.setOrder(deliveryDTO.getOrder());
-        delivery.setStatus(deliveryDTO.getStatus());
-
-        return delivery;
-    }
-
     public static Shop toShop(ShopDTO shopDTO) {
         Shop shop = new Shop();
 

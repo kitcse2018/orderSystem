@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@DiscriminatorColumn(name = "M_TYPE")
+@Table(name = "MENU")
 public class Menu {
     @Id
     @GeneratedValue

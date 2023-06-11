@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
+@Table(name = "SHOP")
 public class Shop {
     @Id
     @GeneratedValue
