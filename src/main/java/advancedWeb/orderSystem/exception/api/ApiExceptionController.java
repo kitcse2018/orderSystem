@@ -18,6 +18,11 @@ public class ApiExceptionController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MemberException.class)
     public ResponseEntity<Object> memberExHandler(MemberException e){
+        System.out.println("=============================================");
+//        System.out.println(this.getClass().toString());
+        System.out.println("line 20, memberExHandler");
+        System.out.println("e.getMessage() = " + e.getMessage());
+        System.out.println("=============================================");
         return ResponseEntity.badRequest().body(e.getMessage());
     }
 }

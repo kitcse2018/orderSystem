@@ -24,30 +24,28 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
+    /***
+     * 회원가입 로직
+     * @Param memberDTO 회원가입을 시도하는 회원의 정보
+     * @return void
+     * */
     public void saveMember(MemberDTO memberDTO) {
         Member member = EntityConverter.toMember(memberDTO);
         memberRepository.save(member);
     }
 
-    /**
-     * 로그인
-     * @param memberDTO 로그인 시도하는 회원 정보
-     * @return ResponseEntity (message, (OK || BAD_REQUEST))
+
+    /***
+     * 로그인 시 회원 조회
+     * @param id 로그인을 시도하는 회원의 아이디
+     * @return id에 해당하는 회원
+     * @Nullable
      */
-    public ResponseEntity<Object> login(MemberDTO memberDTO){ // 여기를 getMemberById로 바꾸고 Controller에서 로직 작성
-        Member member = EntityConverter.toMember(memberDTO);
-        Optional<Member> findMember = memberRepository.findById(member.getId());
+    public Member getMemberById(Long id){
+        Optional<Member> findMember = memberRepository.findById(id);
         if(findMember.isPresent()){
-            if(findMember.get().getPassword().equals(member.getPassword())){
-                return new ResponseEntity("로그인 성공", HttpStatus.OK);
-            }else{
-                // 비밀번호가 일치하지 않음
-                // throw new MemberException("비밀번호가 일치하지 않습니다.");
-                return new ResponseEntity("비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
-            }
-        }else{
-            // 존재하는 회원이 아님
-            return new ResponseEntity("존재하지 않는 회원입니다.", HttpStatus.BAD_REQUEST);
+            return findMember.get();
         }
+        return null;
     }
 }

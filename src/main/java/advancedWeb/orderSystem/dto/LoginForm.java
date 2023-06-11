@@ -10,4 +10,5 @@ public class LoginForm {
 
     @NotNull
     private String password;
+
 }

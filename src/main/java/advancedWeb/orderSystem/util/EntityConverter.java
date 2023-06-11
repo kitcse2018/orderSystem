@@ -54,6 +54,7 @@ public class EntityConverter {
         Member member = new Member();
 
         member.setId(memberDTO.getId());
+        member.setPassword(memberDTO.getPassword());
         member.setName(memberDTO.getName());
         member.setRoleType(memberDTO.getRoleType());
 

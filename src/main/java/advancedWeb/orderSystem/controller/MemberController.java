@@ -2,6 +2,7 @@ package advancedWeb.orderSystem.controller;
 
 import advancedWeb.orderSystem.domain.Member;
 import advancedWeb.orderSystem.dto.MemberDTO;
+import advancedWeb.orderSystem.exception.customExceptions.MemberException;
 import advancedWeb.orderSystem.service.MemberService;
 import advancedWeb.orderSystem.web.SessionConst;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,37 +26,82 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    // 회원가입 페이지 Get 요청
-    /*@GetMapping("/signUp")
+    // *************************** test ***************************
 
+    @GetMapping("/login")
+    public ResponseEntity<Object> login() {
+        System.out.println("로그인 페이지 요청");
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<Object> test() {
+        System.out.println("test");
+        return ResponseEntity.ok().build();
+    }
+
+    // *************************** end of test ***************************
 
     // 회원가입 Post 요청
-    /*@PostMapping("/signUp")
-    public void signUp() {
-        memberService.signUp();
-    }*/
-
-    // 로그인 페이지 Get 요청
-    public String login(@ModelAttribute("member") MemberDTO memberDTO) {
-        return "login";
+    @PostMapping("/signUp")
+    public ResponseEntity<Object> signUp(@RequestBody MemberDTO memberDTO) {
+        System.out.println("회원가입 요청");
+        try{
+            memberService.saveMember(memberDTO);
+        }catch (Exception e) {
+            throw new MemberException("회원가입 실패");
+        }
+        return ResponseEntity.ok().build();
     }
 
     // 로그인 Post 요청
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@Validated @ModelAttribute("member") MemberDTO memberDTO,
+    public ResponseEntity<Object> login(@Validated @RequestBody MemberDTO memberDTO,
                                 BindingResult bindingResult,
                                 HttpServletRequest request) {
-        if(bindingResult.hasErrors()) {
-            return new ResponseEntity("로그인 실패", HttpStatus.BAD_REQUEST);
+        try{
+            if(bindingResult.hasErrors()) {
+                return new ResponseEntity("로그인 실패", HttpStatus.BAD_REQUEST);
+            }
+
+            Member findMember = memberService.getMemberById(memberDTO.getId());
+
+            if(findMember == null) {
+                throw new MemberException("존재하지 않는 회원입니다.");
+            }
+
+            if(!findMember.getPassword().equals(memberDTO.getPassword())) {
+                throw new MemberException("비밀번호가 일치하지 않습니다.");
+            }
+
+            // 로그인 성공
+            HttpSession session = request.getSession();
+            session.setAttribute(SessionConst.LOGIN_MEMBER, memberDTO.getId());
+
+            // redirect 후에 위치 설정 해줘야 할 듯 (로그인 성공 시 메인 페이지로 이동)
+            // 아니면 Front End에서 redirect 해줘야 할 듯
+            return ResponseEntity.ok().build();
+
+        }catch (Exception e) {
+            throw new RuntimeException();
         }
+    }
 
-        // 로그인 성공
-        ResponseEntity<Object> responseEntity = memberService.login(memberDTO);
+    @ExceptionHandler(MemberException.class)
+    public ResponseEntity<Object> memberExHandler(MemberException e){
+        System.out.println("=============================================");
+        System.out.println("MemberController MemberException");
+        System.out.println("e.getMessage() = " + e.getMessage());
+        System.out.println("=============================================");
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
 
-        HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.LOGIN_MEMBER, memberDTO.getId());
-
-        // redirect 후에 위치 설정 해줘야 할 듯 (로그인 성공 시 메인 페이지로 이동)
-        return responseEntity;
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Object> exHandler(RuntimeException e){
+        System.out.println("=============================================");
+        System.out.println("MemberController RuntimeException");
+        System.out.println("e.getMessage() = " + e.getMessage());
+        System.out.println("=============================================");
+        return ResponseEntity.badRequest().body("예기치 못한 오류가 발생했습니다.");
     }
 }
