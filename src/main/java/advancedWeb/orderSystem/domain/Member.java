@@ -12,6 +12,8 @@ public class Member {
     @Column(name = "MEMBER_ID")
     private Long id;
 
+    private String password;
+
     private String name;
 
     @Enumerated(EnumType.STRING)

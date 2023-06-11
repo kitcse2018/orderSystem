@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 @Data
 public class MemberDTO {
     private Long id;
+    private String password;
     private String name;
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
