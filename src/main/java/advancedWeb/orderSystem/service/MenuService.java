@@ -7,6 +7,8 @@ import advancedWeb.orderSystem.util.EntityConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MenuService {
 
@@ -27,4 +29,11 @@ public class MenuService {
         menuRepository.updateMenu(menu);
     }
 
+    /***
+     * 메뉴 조회
+     * @return List
+     */
+    public List<Menu> findAll(){
+        return menuRepository.findAll();
+    }
 }

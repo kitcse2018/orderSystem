@@ -6,7 +6,6 @@ import advancedWeb.orderSystem.exception.customExceptions.MemberException;
 import advancedWeb.orderSystem.service.MemberService;
 import advancedWeb.orderSystem.web.SessionConst;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -61,7 +60,7 @@ public class MemberController {
                                 HttpServletRequest request) {
         try{
             if(bindingResult.hasErrors()) {
-                return new ResponseEntity("로그인 실패", HttpStatus.BAD_REQUEST);
+                return ResponseEntity.badRequest().body("로그인 실패");
             }
 
             Member findMember = memberService.getMemberById(memberDTO.getId());
@@ -89,19 +88,20 @@ public class MemberController {
 
     @ExceptionHandler(MemberException.class)
     public ResponseEntity<Object> memberExHandler(MemberException e){
-        System.out.println("=============================================");
-        System.out.println("MemberController MemberException");
-        System.out.println("e.getMessage() = " + e.getMessage());
-        System.out.println("=============================================");
+        printExceptionInfo(e.getMessage());
         return ResponseEntity.badRequest().body(e.getMessage());
     }
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Object> exHandler(RuntimeException e){
-        System.out.println("=============================================");
-        System.out.println("MemberController RuntimeException");
-        System.out.println("e.getMessage() = " + e.getMessage());
-        System.out.println("=============================================");
+        printExceptionInfo(e.getMessage());
         return ResponseEntity.badRequest().body("예기치 못한 오류가 발생했습니다.");
+    }
+
+    public void printExceptionInfo(String message){
+        System.out.println("=============================================");
+        System.out.println("MenuController printExceptionInfo");
+        System.out.println("Exception message = " + message);
+        System.out.println("=============================================");
     }
 }
