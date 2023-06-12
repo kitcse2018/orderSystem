@@ -23,4 +23,6 @@ public class Member {
     @Enumerated(EnumType.STRING)
     @Column(name = "ROLE_TYPE")
     private RoleType roleType;
+
+    private Integer discountId;
 }

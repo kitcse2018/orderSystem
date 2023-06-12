@@ -17,10 +17,6 @@ public class Order {
     @Column(name = "ORDER_ID")
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "DISCOUNT_ID")
-    private Discount discount;
-
     @Column(name = "DELIVERY")
     private String delivery;
 

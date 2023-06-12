@@ -1,6 +1,5 @@
 package advancedWeb.orderSystem.service;
 
-import advancedWeb.orderSystem.domain.Discount;
 import advancedWeb.orderSystem.domain.Menu;
 import advancedWeb.orderSystem.domain.Order;
 import advancedWeb.orderSystem.domain.OrderItem;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
