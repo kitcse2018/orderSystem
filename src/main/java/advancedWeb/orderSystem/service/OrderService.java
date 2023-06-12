@@ -27,12 +27,8 @@ public class OrderService {
     @Transactional
     public void createOrder(OrderDTO orderDTO) {
         Order order  = new Order();
-        Discount discount  = new Discount();
-
-        discount.setId(orderDTO.getDiscountId());
 
         order.setId(orderDTO.getId());
-        order.setDiscount(discount);
         order.setDelivery(orderDTO.getDelivery());
 
         List<OrderItem> orderItemList = new ArrayList<>();
