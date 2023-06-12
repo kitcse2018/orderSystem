@@ -81,4 +81,9 @@ public class OrderService {
         orderRepository.updateOrderDelivery(orderId, orderDelivery);
     }
 
+    @Transactional
+    public List<Order> findAll() {
+        return orderRepository.findAll();
+    }
+
 }
