@@ -7,6 +7,7 @@ import advancedWeb.orderSystem.dto.OrderDTO;
 import advancedWeb.orderSystem.dto.OrderItemDTO;
 import advancedWeb.orderSystem.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,6 +63,17 @@ public class OrderService {
         } else {
             // 취소 안되는 로직 작성
         }
+    }
+
+    @Transactional
+    public void searchOrder(String delivery) {
+        orderRepository.findAllByDelivery(delivery);
+    }
+
+    @Transactional
+    public void acceptOrder(Long orderId) {
+        String delivery = "DELIVERY";
+        orderRepository.updateOrderDelivery(orderId, delivery);
     }
 
     @Transactional

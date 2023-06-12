@@ -43,6 +43,26 @@ public class OrderController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<Object> searchOrder(@RequestParam("delivery") String delivery) {
+        try {
+            orderService.searchOrder(delivery);
+        } catch (Exception e) {
+            throw new OrderException("주문이 없습니다.");
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/accept")
+    public ResponseEntity<Object> acceptOrder(@RequestParam("orderId") Long orderId) {
+        try {
+            orderService.acceptOrder(orderId);
+        } catch (Exception e) {
+            throw new OrderException("주문 수정 불가");
+        }
+        return ResponseEntity.ok().build();
+    }
+
     @PutMapping("/update")
     public ResponseEntity<Object> updateOrderDelivery(@RequestParam("orderId") Long orderId,
                                                       @RequestParam("orderDelivery") String orderDelivery) {
