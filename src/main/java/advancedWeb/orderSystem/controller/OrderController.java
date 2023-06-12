@@ -23,7 +23,7 @@ public class OrderController {
     public ResponseEntity<Object> createOrder(@RequestBody OrderDTO orderDTO) {
 
         LocalTime now = LocalTime.now();
-        if(now.isAfter(LocalTime.of(8, 0, 0)) && now.isBefore(LocalTime.of(23, 0, 0))) {
+        if(now.isAfter(LocalTime.of(8, 0, 0)) && now.isBefore(LocalTime.of(23, 59, 59))) {
             throw new OrderException("주문 가능 시간이 아닙니다.");
         }
 
