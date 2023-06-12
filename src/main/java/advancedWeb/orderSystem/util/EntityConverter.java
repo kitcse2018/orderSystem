@@ -13,18 +13,9 @@ public class EntityConverter {
         menu.setPictureUrl(menuDTO.getPictureUrl());
         menu.setInfo(menuDTO.getInfo());
         menu.setType(menuDTO.getType());
+        menu.setDiscountId(menuDTO.getDiscountId());
 
         return menu;
-    }
-
-    public static Discount toDiscount(DiscountDTO discountDTO) {
-        Discount discount = new Discount();
-
-        discount.setId(discountDTO.getId());
-        discount.setIsRate(discountDTO.getIsRate());
-        discount.setDiscountPrice(discountDTO.getDiscountPrice());
-
-        return discount;
     }
 
     public static Shop toShop(ShopDTO shopDTO) {

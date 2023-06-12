@@ -35,6 +35,9 @@ public class Menu {
     @Column(name = "TYPE")
     private String type;
 
+    @Column(name = "DISCOUNT_ID")
+    private Integer discountId;
+
     // Menu와 OrderItem 간의 관계 설정
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();

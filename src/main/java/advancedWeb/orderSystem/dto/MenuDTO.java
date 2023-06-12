@@ -12,4 +12,5 @@ public class MenuDTO {
     private String pictureUrl;
     private String info;
     private String type;
+    private Integer discountId;
 }
