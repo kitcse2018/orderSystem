@@ -19,6 +19,15 @@ public class OrderController {
         this.orderService = orderService;
     }
 
+    @GetMapping("/getOrder")
+    public ResponseEntity<Object> getOrder() {
+        try{
+            return ResponseEntity.ok().body(orderService.findAll());
+        }catch(Exception e) {
+            throw new OrderException("주문 조회 실패");
+        }
+    }
+
     @PostMapping("/create")
     public ResponseEntity<Object> createOrder(@RequestBody OrderDTO orderDTO) {
 
@@ -34,6 +43,8 @@ public class OrderController {
         if(orderDTO.getTotalPrice()<8000){
             throw new OrderException("최소 주문 금액은 8000원 입니다.");
         }
+
+        orderDTO.setDelivery("ORDER");
 
         try {
             orderService.createOrder(orderDTO);
@@ -55,7 +66,13 @@ public class OrderController {
     }
 
     @DeleteMapping("/cancel")
-    public ResponseEntity<Object> cancelOrder(@RequestParam("orderId") Long orderId) {
+    public ResponseEntity<Object> cancelOrder(@RequestParam("orderId") Long orderId,
+                                              @RequestBody OrderDTO orderDTO) {
+
+        if(orderDTO.getDelivery().equals("DELIVERY")) {
+            throw new OrderException("배달 중인 주문은 취소할 수 없습니다.");
+        }
+
         try {
             orderService.cancelOrder(orderId);
         } catch (Exception e) {
