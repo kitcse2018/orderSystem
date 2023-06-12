@@ -32,6 +32,11 @@ public class MenuService {
         menuRepository.updateMenu(menu);
     }
 
+    public void updateDiscount(MenuDTO menuDTO){
+        Menu menu = EntityConverter.toMenu(menuDTO);
+        menuRepository.updateDiscount(menu);
+    }
+
     /***
      * 메뉴 조회
      * @return List

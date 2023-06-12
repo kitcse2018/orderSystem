@@ -45,6 +45,12 @@ public class MenuController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/updateDiscount")
+    public ResponseEntity<Object> updateDiscount(@RequestBody MenuDTO menuDTO) {
+        menuService.updateDiscount(menuDTO);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/search")
     public ResponseEntity<Object> searchMenuQuantity(@RequestParam("menuId") Long menuId) {
         try {
