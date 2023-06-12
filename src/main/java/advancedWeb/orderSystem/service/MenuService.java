@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -39,8 +40,10 @@ public class MenuService {
         return menuRepository.findAll();
     }
 
-    public void searchMenuQuantity(Long menuId) {
-        menuRepository.findQuantityById(menuId);
+    public Integer searchMenuQuantity(Long menuId) {
+        Optional<Menu> menu = menuRepository.findById(menuId);
+        Integer menuQuantity = menu.get().getQuantity();
+        return menuQuantity;
     }
 
     /***

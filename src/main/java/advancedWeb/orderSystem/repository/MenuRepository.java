@@ -18,8 +18,6 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
     @Query("update Menu m set m.name = :#{#Menu.name}, m.price = :#{#Menu.price}, m.quantity = :#{#Menu.quantity}, m.pictureUrl = :#{#Menu.pictureUrl}, m.info = :#{#Menu.info}, m.type = :#{#Menu.type} where m.id = :#{#Menu.id}")
     void updateMenu(@Param("Menu") Menu menu);
 
-    Integer findQuantityById(Long menuId);
-
     @Query("select m from Menu m where m.name = :#{#Menu.name}")
     List<Menu> findByName(@Param("Menu") Menu menu);
 
