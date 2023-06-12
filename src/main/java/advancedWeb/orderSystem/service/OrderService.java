@@ -10,8 +10,10 @@ import advancedWeb.orderSystem.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -52,6 +54,21 @@ public class OrderService {
         order.setOrderItems(orderItemList);
 
         orderRepository.save(order);
+    }
+
+    public void cancelOrder(Long orderId) {
+        Optional<Order> order = orderRepository.findById(orderId);
+        String delivery = order.get().getDelivery();
+
+        if(delivery.equals("주문")) {
+            orderRepository.deleteById(orderId);
+        } else {
+            // 취소 안되는 로직 작성
+        }
+    }
+
+    public void updateOrderDelivery(Long orderId, String orderDelivery) {
+        orderRepository.updateOrderDelivery(orderId, orderDelivery);
     }
 
 }

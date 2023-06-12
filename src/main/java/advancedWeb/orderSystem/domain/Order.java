@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "ORDER")
+@Table(name = "ORDERS")
 public class Order {
     @Id
     @GeneratedValue
