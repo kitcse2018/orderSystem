@@ -1,13 +1,11 @@
 package advancedWeb.orderSystem.controller;
 
+import advancedWeb.orderSystem.dto.OrderItemDTO;
 import advancedWeb.orderSystem.exception.customExceptions.OrderItemException;
 import advancedWeb.orderSystem.service.OrderItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/orderItem")
@@ -18,6 +16,17 @@ public class OrderItemController {
     @Autowired
     public OrderItemController(OrderItemService orderItemService) {
         this.orderItemService = orderItemService;
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<Object> createOrderItem(@RequestBody OrderItemDTO orderItemDTO) {
+        try {
+            orderItemService.save(orderItemDTO);
+            return ResponseEntity.ok().build();
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw new OrderItemException("주문 상품 생성 불가");
+        }
     }
 
     @GetMapping("/getOrderItem")
