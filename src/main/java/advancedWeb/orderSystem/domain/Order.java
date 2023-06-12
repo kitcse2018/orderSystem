@@ -33,7 +33,7 @@ public class Order {
     @Column(name="CREATION_TIME")
     private LocalDateTime creationTime;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
 }

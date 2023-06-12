@@ -33,7 +33,7 @@ public class OrderController {
     public ResponseEntity<Object> createOrder(@RequestBody OrderDTO orderDTO) {
 
         LocalTime now = LocalTime.now();
-        if(now.isAfter(LocalTime.of(8, 0, 0)) && now.isBefore(LocalTime.of(23, 59, 59))) {
+        if(now.isBefore(LocalTime.of(8, 0, 0)) && now.isAfter(LocalTime.of(23, 59, 59))) {
             throw new OrderException("주문 가능 시간이 아닙니다.");
         }
 
@@ -48,11 +48,11 @@ public class OrderController {
         orderDTO.setDelivery("ORDER");
         orderDTO.setCreationTime(LocalDateTime.now());
         orderService.createOrder(orderDTO);
-       /* try {
+        try {
             orderService.createOrder(orderDTO);
         } catch (Exception e) {
             throw new OrderException("주문 생성 불가");
-        }*/
+        }
         return ResponseEntity.ok().build();
     }
 
