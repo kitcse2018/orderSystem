@@ -1,11 +1,15 @@
 package advancedWeb.orderSystem.controller;
 
+import advancedWeb.orderSystem.domain.Discount;
 import advancedWeb.orderSystem.dto.DiscountDTO;
 import advancedWeb.orderSystem.exception.customExceptions.DiscountException;
 import advancedWeb.orderSystem.service.DiscountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/discount")
@@ -16,6 +20,30 @@ public class DiscountController {
     @Autowired
     public DiscountController(DiscountService discountService) {
         this.discountService = discountService;
+    }
+
+    @GetMapping("/getAllDiscount")
+    public ResponseEntity<Object> getDiscount(){
+        try{
+            List<Discount> discountList = discountService.getAllDiscounts();
+            return ResponseEntity.ok().body(discountList);
+        }catch(Exception e) {
+            throw new DiscountException("할인 정보 조회 실패");
+        }
+    }
+
+    @GetMapping("/getDiscountById")
+    public ResponseEntity<Object> getDiscountById(@RequestParam("discountId") Long discountId){
+        try{
+            Optional<Discount> discount = discountService.getDiscountById(discountId);
+            if(discount.isPresent()){
+                return ResponseEntity.ok().body(discount);
+            }else{
+                throw new DiscountException("존재하지 않는 할인 정보입니다.");
+            }
+        }catch(Exception e) {
+            throw new DiscountException("할인 정보 조회 실패");
+        }
     }
 
     @PutMapping
