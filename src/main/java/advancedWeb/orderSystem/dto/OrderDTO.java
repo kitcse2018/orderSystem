@@ -11,5 +11,6 @@ public class OrderDTO {
     private String delivery;
     private Integer totalPrice;
     private Long orderMemberId;
+    private Boolean isContainMain;
     private List<OrderItemDTO> orderItemDTOList = new ArrayList<>();
 }

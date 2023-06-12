@@ -26,6 +26,9 @@ public class Order {
     @Column(name="ORDER_MEMBER_ID")
     private Long orderMemberId;
 
+    @Column(name="IS_CONTAIN_MAIN")
+    private Boolean isContainMain;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 

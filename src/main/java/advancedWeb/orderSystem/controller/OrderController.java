@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
+
 @RestController
 @RequestMapping("/order")
 public class OrderController {
@@ -19,6 +21,10 @@ public class OrderController {
 
     @PostMapping("/create")
     public ResponseEntity<Object> createOrder(@RequestBody OrderDTO orderDTO) {
+        LocalTime now = LocalTime.now();
+        if(now.isBefore(LocalTime.of(8, 0)) || now.isAfter(LocalTime.of(24, 0))) {
+            throw new OrderException("주문 가능 시간이 아닙니다.");
+        }
         try {
             orderService.createOrder(orderDTO);
         } catch (Exception e) {
