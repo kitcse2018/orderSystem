@@ -9,6 +9,7 @@ import advancedWeb.orderSystem.dto.OrderItemDTO;
 import advancedWeb.orderSystem.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.swing.text.html.Option;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
+    @Transactional
     public void createOrder(OrderDTO orderDTO) {
         Order order  = new Order();
         Discount discount  = new Discount();
@@ -56,6 +58,7 @@ public class OrderService {
         orderRepository.save(order);
     }
 
+    @Transactional
     public void cancelOrder(Long orderId) {
         Optional<Order> order = orderRepository.findById(orderId);
         String delivery = order.get().getDelivery();
@@ -67,6 +70,7 @@ public class OrderService {
         }
     }
 
+    @Transactional
     public void updateOrderDelivery(Long orderId, String orderDelivery) {
         orderRepository.updateOrderDelivery(orderId, orderDelivery);
     }

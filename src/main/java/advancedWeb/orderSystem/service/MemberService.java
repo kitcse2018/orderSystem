@@ -9,12 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
-@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -29,6 +28,7 @@ public class MemberService {
      * @Param memberDTO 회원가입을 시도하는 회원의 정보
      * @return void
      * */
+    @Transactional
     public void saveMember(MemberDTO memberDTO) {
         Member member = EntityConverter.toMember(memberDTO);
         memberRepository.save(member);
@@ -41,6 +41,7 @@ public class MemberService {
      * @return id에 해당하는 회원
      * @Nullable
      */
+    @Transactional
     public Member getMemberById(Long id){
         Optional<Member> findMember = memberRepository.findById(id);
         if(findMember.isPresent()){
