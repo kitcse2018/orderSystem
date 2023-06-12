@@ -2,6 +2,7 @@ package advancedWeb.orderSystem.dto;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,5 +13,6 @@ public class OrderDTO {
     private Integer totalPrice;
     private Long orderMemberId;
     private Boolean isContainMain;
+    private LocalDateTime creationTime;
     private List<OrderItemDTO> orderItemDTOList = new ArrayList<>();
 }
