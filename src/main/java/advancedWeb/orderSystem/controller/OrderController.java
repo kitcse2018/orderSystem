@@ -47,4 +47,23 @@ public class OrderController {
         }
         return ResponseEntity.ok().build();
     }
+
+    @ExceptionHandler(OrderException.class)
+    public ResponseEntity<Object> handleOrderException(OrderException e) {
+        printExceptionInfo(e.getMessage());
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Object> exHandler(RuntimeException e){
+        printExceptionInfo(e.getMessage());
+        return ResponseEntity.badRequest().body("예기치 못한 오류가 발생했습니다.");
+    }
+
+    public void printExceptionInfo(String message){
+        System.out.println("=============================================");
+        System.out.println("OrderController printExceptionInfo");
+        System.out.println("Exception message = " + message);
+        System.out.println("=============================================");
+    }
 }
