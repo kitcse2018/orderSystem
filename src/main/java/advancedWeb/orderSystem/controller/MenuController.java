@@ -41,9 +41,6 @@ public class MenuController {
 
     @PutMapping("/update")
     public ResponseEntity<Object> updateMenu(@RequestBody MenuDTO menuDTO) {
-        if(isExistMenu(menuDTO)) {
-            throw new MenuException("이미 존재하는 메뉴 이름입니다.");
-        }
         menuService.updateMenu(menuDTO);
         return ResponseEntity.ok().build();
     }

@@ -62,6 +62,7 @@ public class EntityConverter {
         orderItem.setId(orderItemDTO.getId());
         orderItem.setOrder(order);
         orderItem.setMenu(menu);
+        orderItem.setAmount(orderItemDTO.getAmount());
 
         return orderItem;
     }

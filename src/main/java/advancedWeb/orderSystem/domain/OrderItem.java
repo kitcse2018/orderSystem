@@ -24,4 +24,6 @@ public class OrderItem {
     @JoinColumn(name = "MENU_ID")
     private Menu menu;
 
+    @Column(name = "amount")
+    private Integer amount;
 }
