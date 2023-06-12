@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 public interface DiscountRepository extends JpaRepository<Discount, Long> {
 
     @Modifying
-    @Query("update Discount d set d.isRate = :#{#Discount.rate}, d.discountPrice = :#{#Discount.discountPrice} where d.id = :#{#Discount.id}")
+    @Query("update Discount d set d.isRate = :#{#Discount.isRate}, d.discountPrice = :#{#Discount.discountPrice} where d.id = :#{#Discount.id}")
     void updateDiscount(@Param("Discount") Discount discount);
 }

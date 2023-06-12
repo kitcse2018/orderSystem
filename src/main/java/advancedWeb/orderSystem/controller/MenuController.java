@@ -31,8 +31,8 @@ public class MenuController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<Object> createMenu(@RequestParam String name, @RequestBody MenuDTO menuDTO) {
-        if(isExistMenu(name)) {
+    public ResponseEntity<Object> createMenu(@RequestBody MenuDTO menuDTO) {
+        if(isExistMenu(menuDTO)) {
             throw new MenuException("이미 존재하는 메뉴입니다.");
         }
         menuService.createMenu(menuDTO);
@@ -41,9 +41,9 @@ public class MenuController {
 
     @PutMapping("/update")
     public ResponseEntity<Object> updateMenu(@RequestBody MenuDTO menuDTO) {
-//        if(isExistMenu(name)) {
-//            throw new MenuException("이미 존재하는 메뉴 이름입니다.");
-//        }
+        if(isExistMenu(menuDTO)) {
+            throw new MenuException("이미 존재하는 메뉴 이름입니다.");
+        }
         menuService.updateMenu(menuDTO);
         return ResponseEntity.ok().build();
     }
@@ -58,9 +58,8 @@ public class MenuController {
         return ResponseEntity.ok().build();
     }
 
-    public boolean isExistMenu(String name) {
-        // 만약 isExistMenu에서 동작이 이상하면 Repository의 @Param 부분을 수정해야 됨
-        return menuService.findByName(name);
+    public boolean isExistMenu(MenuDTO menuDTO) {
+        return menuService.findByName(menuDTO);
     }
 
     @ExceptionHandler(MenuException.class)

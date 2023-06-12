@@ -20,8 +20,7 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
 
     Integer findQuantityById(Long menuId);
 
-    //find by name
-    @Query(value="select * from Menu m where m.name = :name", nativeQuery = true)
-    List<Menu> findByName(@Param("name") String name);
+    @Query("select m from Menu m where m.name = :#{#Menu.name}")
+    List<Menu> findByName(@Param("Menu") Menu menu);
 
 }

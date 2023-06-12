@@ -45,11 +45,12 @@ public class MenuService {
 
     /***
      * 메뉴 이름으로 메뉴 조회
-     * @param name
+     * @param menuDTO
      * @return Menu
      */
-    public boolean findByName(String name) {
-        List<Menu> findMenu = menuRepository.findByName(name);
+    public boolean findByName(MenuDTO menuDTO) {
+        Menu menu = EntityConverter.toMenu(menuDTO);
+        List<Menu> findMenu = menuRepository.findByName(menu);
         if(findMenu.isEmpty()) {
             return false;
         }

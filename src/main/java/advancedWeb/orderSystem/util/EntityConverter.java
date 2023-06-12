@@ -20,7 +20,7 @@ public class EntityConverter {
     public static Discount toDiscount(DiscountDTO discountDTO) {
         Discount discount = new Discount();
 
-        discount.setId(discount.getId());
+        discount.setId(discountDTO.getId());
         discount.setIsRate(discountDTO.getIsRate());
         discount.setDiscountPrice(discountDTO.getDiscountPrice());
 
@@ -51,18 +51,18 @@ public class EntityConverter {
         return member;
     }
 
-//    public static OrderItem toOrderItem(OrderItemDTO orderItemDTO) {
-//        OrderItem orderItem = new OrderItem();
-//        Order order = new Order();
-//        Menu menu = new Menu();
-//
-//        order.setId(orderItemDTO.getOrderId());
-//        menu.setId(orderItemDTO.getMenuId());
-//
-//        orderItem.setId(orderItemDTO.getId());
-//        orderItem.setOrder(order);
-//        orderItem.setMenu(menu);
-//
-//        return orderItem;
-//    }
+    public static OrderItem toOrderItem(OrderItemDTO orderItemDTO) {
+        OrderItem orderItem = new OrderItem();
+        Order order = new Order();
+        Menu menu = new Menu();
+
+        order.setId(orderItemDTO.getOrderId());
+        menu.setId(orderItemDTO.getMenuId());
+
+        orderItem.setId(orderItemDTO.getId());
+        orderItem.setOrder(order);
+        orderItem.setMenu(menu);
+
+        return orderItem;
+    }
 }

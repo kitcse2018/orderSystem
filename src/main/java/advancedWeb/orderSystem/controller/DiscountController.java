@@ -23,7 +23,7 @@ public class DiscountController {
     }
 
     @GetMapping("/getAllDiscount")
-    public ResponseEntity<Object> getDiscount(){
+    public ResponseEntity<Object> getAllDiscount(){
         try{
             List<Discount> discountList = discountService.getAllDiscounts();
             return ResponseEntity.ok().body(discountList);
@@ -47,7 +47,7 @@ public class DiscountController {
     }
 
     @PutMapping
-    public ResponseEntity<Object> updateDiscount(DiscountDTO discountDTO) {
+    public ResponseEntity<Object> updateDiscount(@RequestBody DiscountDTO discountDTO) {
         try{
             discountService.updateDiscount(discountDTO);
         }catch(Exception e) {
