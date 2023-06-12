@@ -1,8 +1,10 @@
 package advancedWeb.orderSystem.controller;
 
+import advancedWeb.orderSystem.domain.Menu;
 import advancedWeb.orderSystem.dto.MenuDTO;
 import advancedWeb.orderSystem.exception.customExceptions.MenuException;
 import advancedWeb.orderSystem.service.MenuService;
+import advancedWeb.orderSystem.util.EntityConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,22 +31,20 @@ public class MenuController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<Object> createMenu(@RequestBody MenuDTO menuDTO) {
-        try{
-            menuService.createMenu(menuDTO);
-        }catch (Exception e) {
-            throw new MenuException("메뉴 생성 실패");
+    public ResponseEntity<Object> createMenu(@RequestParam String name, @RequestBody MenuDTO menuDTO) {
+        if(isExistMenu(name)) {
+            throw new MenuException("이미 존재하는 메뉴입니다.");
         }
+        menuService.createMenu(menuDTO);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/update")
     public ResponseEntity<Object> updateMenu(@RequestBody MenuDTO menuDTO) {
-        try{
-            menuService.updateMenu(menuDTO);
-        }catch (Exception e) {
-            throw new MenuException("메뉴 수정 실패");
-        }
+//        if(isExistMenu(name)) {
+//            throw new MenuException("이미 존재하는 메뉴 이름입니다.");
+//        }
+        menuService.updateMenu(menuDTO);
         return ResponseEntity.ok().build();
     }
 
@@ -56,6 +56,11 @@ public class MenuController {
             throw new MenuException("찾는 메뉴가 없습니다.");
         }
         return ResponseEntity.ok().build();
+    }
+
+    public boolean isExistMenu(String name) {
+        // 만약 isExistMenu에서 동작이 이상하면 Repository의 @Param 부분을 수정해야 됨
+        return menuService.findByName(name);
     }
 
     @ExceptionHandler(MenuException.class)

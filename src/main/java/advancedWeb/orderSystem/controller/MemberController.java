@@ -55,35 +55,26 @@ public class MemberController {
 
     // 로그인 Post 요청
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@Validated @RequestBody MemberDTO memberDTO,
-                                BindingResult bindingResult,
+    public ResponseEntity<Object> login(@RequestBody MemberDTO memberDTO,
                                 HttpServletRequest request) {
-        try{
-            if(bindingResult.hasErrors()) {
-                return ResponseEntity.badRequest().body("로그인 실패");
-            }
 
-            Member findMember = memberService.getMemberById(memberDTO.getId());
+        Member findMember = memberService.getMemberById(memberDTO.getId());
 
-            if(findMember == null) {
-                throw new MemberException("존재하지 않는 회원입니다.");
-            }
-
-            if(!findMember.getPassword().equals(memberDTO.getPassword())) {
-                throw new MemberException("비밀번호가 일치하지 않습니다.");
-            }
-
-            // 로그인 성공
-            HttpSession session = request.getSession();
-            session.setAttribute(SessionConst.LOGIN_MEMBER, memberDTO.getId());
-
-            // redirect 후에 위치 설정 해줘야 할 듯 (로그인 성공 시 메인 페이지로 이동)
-            // 아니면 Front End에서 redirect 해줘야 할 듯
-            return ResponseEntity.ok().build();
-
-        }catch (Exception e) {
-            throw new RuntimeException();
+        if(findMember == null) {
+            throw new MemberException("존재하지 않는 회원입니다.");
         }
+
+        if(!findMember.getPassword().equals(memberDTO.getPassword())) {
+            throw new MemberException("비밀번호가 일치하지 않습니다.");
+        }
+
+        // 로그인 성공
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.LOGIN_MEMBER, memberDTO.getId());
+
+        // redirect 후에 위치 설정 해줘야 할 듯 (로그인 성공 시 메인 페이지로 이동)
+        // 아니면 Front End에서 redirect 해줘야 할 듯
+        return ResponseEntity.ok().build();
     }
 
     @ExceptionHandler(MemberException.class)
@@ -100,7 +91,7 @@ public class MemberController {
 
     public void printExceptionInfo(String message){
         System.out.println("=============================================");
-        System.out.println("MenuController printExceptionInfo");
+        System.out.println("MemberController printExceptionInfo");
         System.out.println("Exception message = " + message);
         System.out.println("=============================================");
     }

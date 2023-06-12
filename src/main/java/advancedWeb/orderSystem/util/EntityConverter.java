@@ -9,7 +9,7 @@ public class EntityConverter {
         menu.setId(menuDTO.getId());
         menu.setName(menuDTO.getName());
         menu.setPrice(menuDTO.getPrice());
-        menu.setQuantity(menu.getQuantity());
+        menu.setQuantity(menuDTO.getQuantity());
         menu.setPictureUrl(menuDTO.getPictureUrl());
         menu.setInfo(menuDTO.getInfo());
         menu.setType(menuDTO.getType());
@@ -50,4 +50,19 @@ public class EntityConverter {
 
         return member;
     }
+
+//    public static OrderItem toOrderItem(OrderItemDTO orderItemDTO) {
+//        OrderItem orderItem = new OrderItem();
+//        Order order = new Order();
+//        Menu menu = new Menu();
+//
+//        order.setId(orderItemDTO.getOrderId());
+//        menu.setId(orderItemDTO.getMenuId());
+//
+//        orderItem.setId(orderItemDTO.getId());
+//        orderItem.setOrder(order);
+//        orderItem.setMenu(menu);
+//
+//        return orderItem;
+//    }
 }
