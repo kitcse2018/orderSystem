@@ -47,12 +47,12 @@ public class OrderController {
 
         orderDTO.setDelivery("ORDER");
         orderDTO.setCreationTime(LocalDateTime.now());
-
-        try {
+        orderService.createOrder(orderDTO);
+       /* try {
             orderService.createOrder(orderDTO);
         } catch (Exception e) {
             throw new OrderException("주문 생성 불가");
-        }
+        }*/
         return ResponseEntity.ok().build();
     }
 

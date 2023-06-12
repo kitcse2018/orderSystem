@@ -39,6 +39,6 @@ public class Menu {
     private Integer discountId;
 
     // Menu와 OrderItem 간의 관계 설정
-    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "menu")
     private List<OrderItem> orderItems = new ArrayList<>();
 }
