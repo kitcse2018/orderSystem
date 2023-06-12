@@ -33,7 +33,7 @@ public class OrderService {
 
         discount.setId(orderDTO.getDiscountId());
 
-        order.setId(null);
+        order.setId(orderDTO.getId());
         order.setDiscount(discount);
         order.setDelivery(orderDTO.getDelivery());
 
