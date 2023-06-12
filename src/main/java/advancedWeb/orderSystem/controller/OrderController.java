@@ -21,10 +21,20 @@ public class OrderController {
 
     @PostMapping("/create")
     public ResponseEntity<Object> createOrder(@RequestBody OrderDTO orderDTO) {
+
         LocalTime now = LocalTime.now();
-        if(now.isBefore(LocalTime.of(8, 0)) || now.isAfter(LocalTime.of(24, 0))) {
+        if(now.isBefore(LocalTime.of(8, 0)) && now.isAfter(LocalTime.of(24, 0))) {
             throw new OrderException("주문 가능 시간이 아닙니다.");
         }
+
+        if(orderDTO.getIsContainMain()){
+            throw new OrderException("메인 메뉴가 포함 되어야 합니다.");
+        }
+
+        if(orderDTO.getTotalPrice()<8000){
+            throw new OrderException("최소 주문 금액은 8000원 입니다.");
+        }
+
         try {
             orderService.createOrder(orderDTO);
         } catch (Exception e) {
