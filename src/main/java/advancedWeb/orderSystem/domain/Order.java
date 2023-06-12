@@ -24,6 +24,13 @@ public class Order {
     @Column(name = "DELIVERY")
     private String delivery;
 
+    @Column(name="TOTAL_PRICE")
+    private Integer totalPrice;
+
+    @Column(name="ORDER_MEMBER_ID")
+    private Long orderMemberId;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
+
 }

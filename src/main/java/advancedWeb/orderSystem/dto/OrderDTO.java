@@ -10,5 +10,7 @@ public class OrderDTO {
     private Long id;
     private Long discountId;
     private String delivery;
+    private Integer totalPrice;
+    private Long orderMemberId;
     private List<OrderItemDTO> orderItemDTOList = new ArrayList<>();
 }

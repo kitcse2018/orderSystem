@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 public class OrderItemService {
     private final OrderItemRepository orderItemRepository;
 
@@ -18,6 +17,7 @@ public class OrderItemService {
         this.orderItemRepository = orderItemRepository;
     }
 
+    @Transactional
     public void save(OrderItemDTO orderItemDTO) {
         OrderItem orderItem = EntityConverter.toOrderItem(orderItemDTO);
         orderItemRepository.save(orderItem);
