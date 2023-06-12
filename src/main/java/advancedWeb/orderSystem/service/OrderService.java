@@ -28,22 +28,22 @@ public class OrderService {
     public void createOrder(OrderDTO orderDTO) {
         Order order  = new Order();
 
-        order.setId(orderDTO.getId());
         order.setDelivery(orderDTO.getDelivery());
+
+        order = orderRepository.save(order);
 
         List<OrderItem> orderItemList = new ArrayList<>();
 
         for(OrderItemDTO orderItemDTO : orderDTO.getOrderItemDTOList()) {
             OrderItem orderItem = new OrderItem();
-            Order order1 = new Order();
-            Menu menu1 = new Menu();
+            Menu menu = new Menu();
 
-            order1.setId(orderItemDTO.getOrderId());
-            menu1.setId(orderItemDTO.getMenuId());
+            menu.setId(orderItemDTO.getMenuId());
 
             orderItem.setId(orderItemDTO.getId());
-            orderItem.setOrder(order1);
-            orderItem.setMenu(menu1);
+            orderItem.setOrder(order);
+            orderItem.setMenu(menu);
+            orderItem.setAmount(orderItemDTO.getAmount());
 
             orderItemList.add(orderItem);
         }
