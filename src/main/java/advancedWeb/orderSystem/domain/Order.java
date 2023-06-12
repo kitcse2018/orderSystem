@@ -30,6 +30,9 @@ public class Order {
     @Column(name="IS_CONTAIN_MAIN")
     private Boolean isContainMain;
 
+    @Column(name="CREATION_TIME")
+    private LocalDateTime creationTime;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 

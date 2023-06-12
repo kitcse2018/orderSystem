@@ -8,9 +8,12 @@ import advancedWeb.orderSystem.dto.OrderItemDTO;
 import advancedWeb.orderSystem.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -86,4 +89,20 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
+    @Scheduled(fixedDelay = 60000)
+    public void cancelPendingOrders() {
+        List<Order> pendingOrders = orderRepository.findAllByDelivery("ORDER");
+
+        for (Order order : pendingOrders) {
+            LocalDateTime orderCreationTime = order.getCreationTime();
+            LocalDateTime currentTime = LocalDateTime.now();
+
+            Duration duration = Duration.between(orderCreationTime, currentTime);
+            long minutesElapsed = duration.toMinutes();
+
+            if (minutesElapsed >= 1) {
+                orderRepository.delete(order);
+            }
+        }
+    }
 }
