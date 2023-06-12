@@ -1,6 +1,7 @@
 package advancedWeb.orderSystem.controller;
 
 import advancedWeb.orderSystem.dto.OrderDTO;
+import advancedWeb.orderSystem.exception.customExceptions.OrderException;
 import advancedWeb.orderSystem.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class OrderController {
         try {
             orderService.createOrder(orderDTO);
         } catch (Exception e) {
-
+            throw new OrderException("주문 생성 불가");
         }
         return ResponseEntity.ok().build();
     }
@@ -32,7 +33,7 @@ public class OrderController {
         try {
             orderService.updateOrderDelivery(orderId, orderDelivery);
         } catch (Exception e) {
-
+            throw new OrderException("주문 수정 불가");
         }
         return ResponseEntity.ok().build();
     }
@@ -42,7 +43,7 @@ public class OrderController {
         try {
             orderService.cancelOrder(orderId);
         } catch (Exception e) {
-
+            throw new OrderException("주문 삭제 불가");
         }
         return ResponseEntity.ok().build();
     }
