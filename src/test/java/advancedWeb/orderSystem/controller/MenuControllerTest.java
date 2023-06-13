@@ -31,11 +31,11 @@ class MenuControllerTest {
     @DisplayName("메뉴 등록")
     void createMenu_Normal() throws Exception {
         //given
-        String name = "햄버거";
-        Integer price  = 6000;
+        String name = "햄버거999999";
+        Integer price  = 9000;
         Integer quantity = 0;
         String pictureUrl = "asd";
-        String info = "설명입니다.";
+        String info = "설명입니다.99999";
         String type = "M";
 
         //when

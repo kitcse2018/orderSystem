@@ -82,7 +82,7 @@ class OrderControllerTest {
         String delivery = "ORDER";
         Integer totalPrice = 12000;
         Long orderMemberId = 1L;
-        Boolean isContainMain = false;
+        Boolean isContainMain = true;
 
         List<OrderItemDTO> orderItemDTOList = new ArrayList<>();
 
@@ -121,7 +121,7 @@ class OrderControllerTest {
     }
 
     @Test
-    @DisplayName("주문 생성 메인 없는 예외")
+    @DisplayName("주문 생성 메인 메뉴 없는 예외")
     void createOrder_NotMain_Exception() throws Exception {
         //given
         String delivery = "ORDER";
@@ -162,7 +162,7 @@ class OrderControllerTest {
         mvc.perform(post(BASE_URL + "/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(orderDTO))
-        ).andExpect(status().isOk());
+        ).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -172,7 +172,7 @@ class OrderControllerTest {
         String delivery = "ORDER";
         Integer totalPrice = 7000;
         Long orderMemberId = 1L;
-        Boolean isContainMain = false;
+        Boolean isContainMain = true;
 
         List<OrderItemDTO> orderItemDTOList = new ArrayList<>();
 
@@ -207,20 +207,22 @@ class OrderControllerTest {
         mvc.perform(post(BASE_URL + "/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(orderDTO))
-        ).andExpect(status().isOk());
+        ).andExpect(status().isBadRequest());
     }
 
     @Test
     @DisplayName("주문 접수")
     void receiptOrder_Normal() throws Exception {
         //given
-        Long orderId  = 1L;
+        String delivery = "DELIVERY";
+        Long orderId  = 28L; // Change When Test
 
         //when
 
         //then
         mvc.perform(put(BASE_URL + "/accept")
                 .param("orderId", String.valueOf(orderId))
+                .param("delivery", delivery)
         ).andExpect(status().isOk());
     }
 
@@ -229,14 +231,14 @@ class OrderControllerTest {
     void completeOrder_Normal() throws Exception {
         //given
         String delivery = "COMPLETE";
-        Long orderId  = 1L;
+        Long orderId  = 28L; //Change When Test
 
         //when
 
         //then
         mvc.perform(put(BASE_URL + "/update")
                 .param("orderId", String.valueOf(orderId))
-                .param("delivery", delivery)
+                .param("orderDelivery", delivery)
         ).andExpect(status().isOk());
     }
 }
