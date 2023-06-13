@@ -32,11 +32,11 @@ class MenuControllerTest {
     void createMenu_Normal() throws Exception {
         //given
         String name = "햄버거";
-        Integer price  = 1;
+        Integer price  = 6000;
         Integer quantity = 0;
         String pictureUrl = "asd";
         String info = "설명입니다.";
-        String type = "main";
+        String type = "M";
 
         //when
         MenuDTO menuDTO = new MenuDTO();;
@@ -59,12 +59,12 @@ class MenuControllerTest {
     @DisplayName("메뉴 등록 예외 확인")
     void createMenu_Exception() throws Exception {
         //given
-        String name = "싸이버거";
-        Integer price  = 1;
+        String name = "햄버거";
+        Integer price  = 6000;
         Integer quantity = 0;
         String pictureUrl = "asd";
         String info = "설명입니다.";
-        String type = "main";
+        String type = "M";
 
         //when
         MenuDTO menuDTO = new MenuDTO();;
@@ -79,7 +79,7 @@ class MenuControllerTest {
         mvc.perform(post(BASE_URL + "/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(menuDTO))
-        ).andExpect(status().isOk());
+        ).andExpect(status().isBadRequest());
 
     }
 
@@ -87,15 +87,17 @@ class MenuControllerTest {
     @DisplayName("메뉴 수정")
     void updateMenu_Normal() throws Exception {
         //given
-        String name = "싸이버거";
-        Integer price  = 1;
+        Long id = 1L;
+        String name = "싸이버거22";
+        Integer price  = 6500;
         Integer quantity = 0;
         String pictureUrl = "asd";
         String info = "설명입니다.";
-        String type = "main";
+        String type = "M";
 
         //when
         MenuDTO menuDTO = new MenuDTO();;
+        menuDTO.setId(id);
         menuDTO.setName(name);
         menuDTO.setPrice(price);
         menuDTO.setQuantity(quantity);
@@ -115,6 +117,7 @@ class MenuControllerTest {
     @DisplayName("메뉴 별 할인 수정")
     void updateDiscount_Normal() throws Exception {
         //given
+        Long id = 1L;
         String name = "싸이버거";
         Integer price  = 1;
         Integer quantity = 0;
@@ -125,12 +128,14 @@ class MenuControllerTest {
 
         //when
         MenuDTO menuDTO = new MenuDTO();;
+        menuDTO.setId(id);
         menuDTO.setName(name);
         menuDTO.setPrice(price);
         menuDTO.setQuantity(quantity);
         menuDTO.setPictureUrl(pictureUrl);
         menuDTO.setInfo(info);
         menuDTO.setType(type);
+        menuDTO.setDiscountId(deliveryId);
 
         //then
         mvc.perform(put(BASE_URL + "/updateDiscount")
