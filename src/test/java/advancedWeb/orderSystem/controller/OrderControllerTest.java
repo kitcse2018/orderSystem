@@ -81,23 +81,113 @@ class OrderControllerTest {
         String delivery = "ORDER";
         Integer totalPrice = 12000;
         Long orderMemberId = 1L;
-        Boolean isContainMain = true;
+        Boolean isContainMain = false;
 
         List<OrderItemDTO> orderItemDTOList = new ArrayList<>();
 
         OrderItemDTO orderItemDTO1 = new OrderItemDTO();
         orderItemDTO1.setMenuId(1L);
-        orderItemDTO1.setOrderId(1L);
+        orderItemDTO1.setOrderId(2L);
         orderItemDTO1.setAmount(3);
 
         OrderItemDTO orderItemDTO2 = new OrderItemDTO();
         orderItemDTO2.setMenuId(2L);
-        orderItemDTO2.setOrderId(1L);
+        orderItemDTO2.setOrderId(2L);
         orderItemDTO2.setAmount(3);
 
         OrderItemDTO orderItemDTO3 = new OrderItemDTO();
         orderItemDTO3.setMenuId(3L);
-        orderItemDTO3.setOrderId(1L);
+        orderItemDTO3.setOrderId(2L);
+        orderItemDTO3.setAmount(3);
+
+        orderItemDTOList.add(orderItemDTO1);
+        orderItemDTOList.add(orderItemDTO2);
+        orderItemDTOList.add(orderItemDTO3);
+
+        //when
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setDelivery(delivery);
+        orderDTO.setTotalPrice(totalPrice);
+        orderDTO.setOrderMemberId(orderMemberId);
+        orderDTO.setIsContainMain(isContainMain);
+        orderDTO.setOrderItemDTOList(orderItemDTOList);
+
+        //then
+        mvc.perform(put(BASE_URL + "/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(orderDTO))
+        ).andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("주문 생성 메인 없는 예외")
+    void createOrder_NotMain_Exception() throws Exception {
+        //given
+        String delivery = "ORDER";
+        Integer totalPrice = 12000;
+        Long orderMemberId = 1L;
+        Boolean isContainMain = false;
+
+        List<OrderItemDTO> orderItemDTOList = new ArrayList<>();
+
+        OrderItemDTO orderItemDTO1 = new OrderItemDTO();
+        orderItemDTO1.setMenuId(1L);
+        orderItemDTO1.setOrderId(3L);
+        orderItemDTO1.setAmount(3);
+
+        OrderItemDTO orderItemDTO2 = new OrderItemDTO();
+        orderItemDTO2.setMenuId(2L);
+        orderItemDTO2.setOrderId(3L);
+        orderItemDTO2.setAmount(3);
+
+        OrderItemDTO orderItemDTO3 = new OrderItemDTO();
+        orderItemDTO3.setMenuId(3L);
+        orderItemDTO3.setOrderId(3L);
+        orderItemDTO3.setAmount(3);
+
+        orderItemDTOList.add(orderItemDTO1);
+        orderItemDTOList.add(orderItemDTO2);
+        orderItemDTOList.add(orderItemDTO3);
+
+        //when
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setDelivery(delivery);
+        orderDTO.setTotalPrice(totalPrice);
+        orderDTO.setOrderMemberId(orderMemberId);
+        orderDTO.setIsContainMain(isContainMain);
+        orderDTO.setOrderItemDTOList(orderItemDTOList);
+
+        //then
+        mvc.perform(put(BASE_URL + "/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(orderDTO))
+        ).andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("주문 생성 최소 가격 예외")
+    void createOrder_LeastPrice_Exception() throws Exception {
+        //given
+        String delivery = "ORDER";
+        Integer totalPrice = 7000;
+        Long orderMemberId = 1L;
+        Boolean isContainMain = false;
+
+        List<OrderItemDTO> orderItemDTOList = new ArrayList<>();
+
+        OrderItemDTO orderItemDTO1 = new OrderItemDTO();
+        orderItemDTO1.setMenuId(1L);
+        orderItemDTO1.setOrderId(4L);
+        orderItemDTO1.setAmount(3);
+
+        OrderItemDTO orderItemDTO2 = new OrderItemDTO();
+        orderItemDTO2.setMenuId(2L);
+        orderItemDTO2.setOrderId(4L);
+        orderItemDTO2.setAmount(3);
+
+        OrderItemDTO orderItemDTO3 = new OrderItemDTO();
+        orderItemDTO3.setMenuId(3L);
+        orderItemDTO3.setOrderId(4L);
         orderItemDTO3.setAmount(3);
 
         orderItemDTOList.add(orderItemDTO1);
@@ -123,10 +213,16 @@ class OrderControllerTest {
     @DisplayName("주문 접수")
     void receiptOrder_Normal() throws Exception {
         //given
+        String delivery = "DELIVERY";
+        Long orderId  = 1L;
 
         //when
 
         //then
+        mvc.perform(put(BASE_URL + "/accept")
+                .param("orderId", String.valueOf(orderId))
+                .param("delivery", delivery)
+        ).andExpect(status().isOk());
     }
 
     @Test
