@@ -16,6 +16,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -68,7 +69,7 @@ class OrderControllerTest {
         orderDTO.setOrderItemDTOList(orderItemDTOList);
 
         //then
-        mvc.perform(put(BASE_URL + "/create")
+        mvc.perform(post(BASE_URL + "/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(orderDTO))
         ).andExpect(status().isOk());
@@ -113,7 +114,7 @@ class OrderControllerTest {
         orderDTO.setOrderItemDTOList(orderItemDTOList);
 
         //then
-        mvc.perform(put(BASE_URL + "/create")
+        mvc.perform(post(BASE_URL + "/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(orderDTO))
         ).andExpect(status().isOk());
@@ -158,7 +159,7 @@ class OrderControllerTest {
         orderDTO.setOrderItemDTOList(orderItemDTOList);
 
         //then
-        mvc.perform(put(BASE_URL + "/create")
+        mvc.perform(post(BASE_URL + "/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(orderDTO))
         ).andExpect(status().isOk());
@@ -203,7 +204,7 @@ class OrderControllerTest {
         orderDTO.setOrderItemDTOList(orderItemDTOList);
 
         //then
-        mvc.perform(put(BASE_URL + "/create")
+        mvc.perform(post(BASE_URL + "/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(orderDTO))
         ).andExpect(status().isOk());
