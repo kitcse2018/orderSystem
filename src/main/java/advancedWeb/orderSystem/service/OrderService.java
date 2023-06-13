@@ -52,8 +52,7 @@ public class OrderService {
             orderItemList.add(orderItem);
         }
         order.setOrderItems(orderItemList);
-
-        orderRepository.save(order);
+        order.setId(order.getId());
     }
 
     @Transactional

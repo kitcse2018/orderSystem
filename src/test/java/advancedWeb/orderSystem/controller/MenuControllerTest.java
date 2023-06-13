@@ -110,4 +110,33 @@ class MenuControllerTest {
         ).andExpect(status().isOk());
 
     }
+
+    @Test
+    @DisplayName("메뉴 별 할인 수정")
+    void updateDiscount_Normal() throws Exception {
+        //given
+        String name = "싸이버거";
+        Integer price  = 1;
+        Integer quantity = 0;
+        String pictureUrl = "asd";
+        String info = "설명입니다.";
+        String type = "main";
+        Integer deliveryId = 1;
+
+        //when
+        MenuDTO menuDTO = new MenuDTO();;
+        menuDTO.setName(name);
+        menuDTO.setPrice(price);
+        menuDTO.setQuantity(quantity);
+        menuDTO.setPictureUrl(pictureUrl);
+        menuDTO.setInfo(info);
+        menuDTO.setType(type);
+
+        //then
+        mvc.perform(put(BASE_URL + "/updateDiscount")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(menuDTO))
+        ).andExpect(status().isOk());
+
+    }
 }
