@@ -213,7 +213,6 @@ class OrderControllerTest {
     @DisplayName("주문 접수")
     void receiptOrder_Normal() throws Exception {
         //given
-        String delivery = "DELIVERY";
         Long orderId  = 1L;
 
         //when
@@ -221,7 +220,6 @@ class OrderControllerTest {
         //then
         mvc.perform(put(BASE_URL + "/accept")
                 .param("orderId", String.valueOf(orderId))
-                .param("delivery", delivery)
         ).andExpect(status().isOk());
     }
 
@@ -229,9 +227,15 @@ class OrderControllerTest {
     @DisplayName("주문 배달 완료")
     void completeOrder_Normal() throws Exception {
         //given
+        String delivery = "COMPLETE";
+        Long orderId  = 1L;
 
         //when
 
         //then
+        mvc.perform(put(BASE_URL + "/update")
+                .param("orderId", String.valueOf(orderId))
+                .param("delivery", delivery)
+        ).andExpect(status().isOk());
     }
 }
