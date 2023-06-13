@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @RestController
@@ -32,11 +33,11 @@ public class OrderController {
     public ResponseEntity<Object> createOrder(@RequestBody OrderDTO orderDTO) {
 
         LocalTime now = LocalTime.now();
-        if(now.isAfter(LocalTime.of(8, 0, 0)) && now.isBefore(LocalTime.of(23, 59, 59))) {
+        if(now.isBefore(LocalTime.of(8, 0, 0)) && now.isAfter(LocalTime.of(23, 59, 59))) {
             throw new OrderException("주문 가능 시간이 아닙니다.");
         }
 
-        if(orderDTO.getIsContainMain()){
+        if(!orderDTO.getIsContainMain()){
             throw new OrderException("메인 메뉴가 포함 되어야 합니다.");
         }
 
@@ -45,7 +46,8 @@ public class OrderController {
         }
 
         orderDTO.setDelivery("ORDER");
-
+        orderDTO.setCreationTime(LocalDateTime.now());
+        orderService.createOrder(orderDTO);
         try {
             orderService.createOrder(orderDTO);
         } catch (Exception e) {

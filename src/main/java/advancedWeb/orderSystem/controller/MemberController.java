@@ -71,7 +71,6 @@ public class MemberController {
         // 로그인 성공
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_MEMBER, memberDTO.getId());
-
         // redirect 후에 위치 설정 해줘야 할 듯 (로그인 성공 시 메인 페이지로 이동)
         // 아니면 Front End에서 redirect 해줘야 할 듯
         return ResponseEntity.ok().build();

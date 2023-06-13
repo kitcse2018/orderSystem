@@ -33,6 +33,10 @@ public class OrderService {
         Order order  = new Order();
 
         order.setDelivery(orderDTO.getDelivery());
+        order.setOrderMemberId(orderDTO.getOrderMemberId());
+        order.setTotalPrice(orderDTO.getTotalPrice());
+        order.setIsContainMain(orderDTO.getIsContainMain());
+        order.setCreationTime(LocalDateTime.now());
 
         order = orderRepository.save(order);
 
@@ -60,10 +64,8 @@ public class OrderService {
         Optional<Order> order = orderRepository.findById(orderId);
         String delivery = order.get().getDelivery();
 
-        if(delivery.equals("주문")) {
+        if(delivery.equals("ORDER")) {
             orderRepository.deleteById(orderId);
-        } else {
-            // 취소 안되는 로직 작성
         }
     }
 
